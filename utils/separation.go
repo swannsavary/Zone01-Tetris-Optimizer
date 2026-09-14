@@ -1,5 +1,6 @@
 package utils
 
+// change un slice de byte en un slice de string tout les 4 \n
 func SliceByteToString(bytes []byte) []string {
 	var result []string
 	var tetromino string
