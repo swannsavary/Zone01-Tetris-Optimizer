@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"tetris-optimizer/formatage"
 	"tetris-optimizer/utils"
@@ -10,14 +9,14 @@ import (
 func main() {
 	file, err := os.ReadFile("sample.txt")
 	if err != nil {
-		fmt.Println("Error")
+		os.Stdout.WriteString("Error\n")
 		return
 	}
 
 	//prend les donnees du fichier et on separe chaque pieces dans un slice de string alltriomino
 	file2 := utils.SliceByteToString(file)
 	if !formatage.GoodFormat(file2) {
-		fmt.Println("Error")
+		os.Stdout.WriteString("Error\n")
 		return
 	}
 	file2 = utils.SupColumn(file2, utils.SupColumnOfString(file2))
@@ -29,7 +28,7 @@ func main() {
 		letter := byte('A' + i)
 		pi := utils.ToPiece(tetriomino, letter)
 		if !formatage.GoodTetriomino(pi) {
-			fmt.Println("ERROR")
+			os.Stdout.WriteString("Error\n")
 			return
 
 		}
@@ -39,8 +38,8 @@ func main() {
 	//on place chaque piece au bonne endroit puis on affiche le resultat
 	for _, piece := range utils.Assemble(pieces) {
 		for _, p := range piece {
-			fmt.Print(string(p))
+			os.Stdout.WriteString(string(p))
 		}
-		fmt.Println()
+		os.Stdout.WriteString("\n")
 	}
 }
